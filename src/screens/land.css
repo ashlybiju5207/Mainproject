@@ -1,0 +1,238 @@
+/* General Styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f3f4f6; /* Light background */
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Styling */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #16a34a; /* Green */
+}
+
+.menu-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: none; /* Hide the menu icon by default */
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.nav a:hover {
+  color: #16a34a;
+}
+
+/* Responsive Menu */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block; /* Show the menu icon on small screens */
+  }
+
+  .nav {
+    display: none; /* Hide the menu by default on small screens */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+    z-index: 1000; /* Ensure the menu appears above other content */
+  }
+
+  .nav.open {
+    display: flex; /* Show the menu when open */
+  }
+
+  .nav a {
+    margin: 10px 0;
+  }
+}
+
+/* Main Section */
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px;
+  gap: 30px;
+}
+
+/* Left Section */
+.left {
+  flex: 3;
+  background-color: #323232; /* Dark grey background */
+  color: white;
+  padding: 50px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; /* Make it relative to position the overlay text */
+  background-image: url('../images/meter.png'); /* Set the background image */
+  background-size: 500px; /* Reduce the size of the image */
+  background-position: right bottom; /* Position the image towards the right bottom corner */
+  background-repeat: no-repeat; /* Ensure the image does not repeat */
+  min-height: 550px; /* Increase the height of the box */
+}
+
+.left h1 {
+  font-size: 3.5em;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+
+.left .highlight {
+  color: #22c55e; /* Bright green */
+}
+
+.left p {
+  font-size: 1.1em;
+  margin-bottom: 40px;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning */
+  color: white; /* Text color */
+  text-align: center; /* Center align text */
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5); /* Optional: Add a semi-transparent background for better readability */
+  border-radius: 5px; /* Optional: Add rounded corners */
+}
+
+/* Right Section */
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.eb-access {
+
+  background-color: #b5b5b5; /* Dark grey */
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Make the boxes flexible */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-box {
+  background-color: #7DDA57; /* Light green */
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Make the boxes flexible */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eb-access h2, .contact-box h2 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.eb-access p, .contact-box p {
+  font-size: 1em;
+  color: #000000; /* Grey text */
+}
+
+.arrow-link {
+  display: inline-block;
+  font-size: 2em;
+  color: #000;
+  text-decoration: none;
+}
+
+.arrow-link:hover {
+  color: #16a34a;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .main {
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+  }
+
+  .left {
+    padding: 40px;
+    margin-bottom: 20px;
+  }
+
+  .eb-access, .contact-box {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .left h1 {
+    font-size: 2.5em;
+  }
+
+  .left {
+    padding: 30px;
+  }
+
+  .eb-access, .contact-box {
+    padding: 20px;
+  }
+
+  .contact-box::after {
+    font-size: 2em;
+    right: 15px;
+  }
+}
