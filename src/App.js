@@ -1,14 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import AppRouter from './router'; // Import AppRouter
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Dashboard from './screens/dashboard';
+import PaymentDashboard from './screens/payments';
+import Reports from './screens/reports';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/payments" component={PaymentDashboard} />
+        <Route path="/reports" component={Reports} />
+        <Route path="/" exact component={Dashboard} />
+      </Switch>
+    </Router>
+  );
+}
 
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
-  </React.StrictMode>
-);
+export default App;

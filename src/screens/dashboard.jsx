@@ -1,77 +1,87 @@
 import React from 'react';
-import { FaUsers, FaDollarSign } from 'react-icons/fa';
-import { RiFlashlightFill } from 'react-icons/ri';
+import { Link, useLocation } from 'react-router-dom';
 
 function Dashboard() {
+  const location = useLocation();
+
   return (
-    <div style={{ display: 'flex', height: '100vh', fontFamily: 'Arial, sans-serif' }}>
+    <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <div style={{ width: '250px', backgroundColor: '#f4f4f4', padding: '20px' }}>
-        <h2 style={{ fontSize: '20px', marginBottom: '20px', color: '#333' }}>EB access</h2>
-        <ul style={{ listStyle: 'none', padding: '0' }}>
-          <li style={{ padding: '10px', cursor: 'pointer', color: '#333', fontWeight: 'bold' }}>Dashboard</li>
-          <li style={{ padding: '10px', cursor: 'pointer', color: '#333' }}>Payments</li>
-          <li style={{ padding: '10px', cursor: 'pointer', color: '#333' }}>Reports</li>
-        </ul>
+      <div className="w-64 bg-white border-r border-gray-200">
+        <div className="p-6">
+          <h2 className="text-lg font-semibold mb-6">EB Access</h2>
+          <nav className="space-y-1">
+            <Link to="/dashboard" className={`flex items-center p-2 rounded-lg ${location.pathname === '/dashboard' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
+              <span className="mr-3">⬚</span>
+              Dashboard
+            </Link>
+            <Link to="/payments" className={`flex items-center p-2 rounded-lg ${location.pathname === '/payments' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
+              <span className="text-green-500 mr-3">📄</span>
+              Payments
+            </Link>
+            <Link to="/reports" className={`flex items-center p-2 rounded-lg ${location.pathname === '/reports' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
+              <span className="text-green-500 mr-3">📊</span>
+              Reports
+            </Link>
+          </nav>
+        </div>
       </div>
 
-      {/* Content */}
-      <div style={{ flex: '1', padding: '20px', backgroundColor: '#fff' }}>
-        {/* Header */}
-        <header>
-          <h1 style={{ fontSize: '24px', color: '#333' }}>MetroniQ</h1>
-        </header>
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        <div className="mb-8">
+          MetroniQ/EB access/Dashboard/
+          <span className="text-green-500">Kurishmoodu Branch</span>
+        </div>
 
-        {/* Overview Section */}
-        <div style={{ marginTop: '20px' }}>
-          <h3 style={{ color: 'green', fontSize: '18px', marginBottom: '10px' }}>Kurishmoodu Branch</h3>
-          <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
-            {/* User Card */}
-            <div style={{
-              flex: '1', display: 'flex', alignItems: 'center', padding: '15px',
-              backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-            }}>
-              <FaUsers style={{ fontSize: '24px', color: '#4CAF50', marginRight: '10px' }} />
+        {/* Stats Cards */}
+        <div className="grid grid-cols-3 gap-6 mb-8">
+          {/* Users Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4">
+                <span className="text-green-500 text-xl">👥</span>
+              </div>
               <div>
-                <p style={{ marginBottom: '5px', color: '#333' }}>Users</p>
-                <h4 style={{ margin: '0', fontSize: '20px', color: '#333' }}>1</h4>
+                <p className="text-sm text-gray-600">Users</p>
+                <p className="text-2xl font-semibold">1</p>
               </div>
             </div>
+          </div>
 
-            {/* Pending Payments Card */}
-            <div style={{
-              flex: '1', display: 'flex', alignItems: 'center', padding: '15px',
-              backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-            }}>
-              <FaDollarSign style={{ fontSize: '24px', color: '#4CAF50', marginRight: '10px' }} />
+          {/* Pending Payments Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4">
+                <span className="text-green-500 text-xl">💸</span>
+              </div>
               <div>
-                <p style={{ marginBottom: '5px', color: '#333' }}>Pending Payments</p>
-                <h4 style={{ margin: '0', fontSize: '20px', color: '#333' }}>Rs. 2000</h4>
+                <p className="text-sm text-gray-600">Pending Payments</p>
+                <p className="text-2xl font-semibold">5</p>
               </div>
             </div>
+          </div>
 
-            {/* Total Consumption Card */}
-            <div style={{
-              flex: '1', display: 'flex', alignItems: 'center', padding: '15px',
-              backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-            }}>
-              <RiFlashlightFill style={{ fontSize: '24px', color: '#4CAF50', marginRight: '10px' }} />
+          {/* Total Consumption Card */}
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4">
+                <span className="text-green-500 text-xl">⚡</span>
+              </div>
               <div>
-                <p style={{ marginBottom: '5px', color: '#333' }}>Total Consumption</p>
-                <h4 style={{ margin: '0', fontSize: '20px', color: '#333' }}>10 kWh</h4>
+                <p className="text-sm text-gray-600">Total Consumption</p>
+                <p className="text-2xl font-semibold">10 kWh</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Energy Usage Section */}
-        <div>
-          <h3 style={{ fontSize: '18px', color: '#333', marginBottom: '10px' }}>Energy Usage</h3>
-          <div style={{
-            width: '100%', height: '300px', backgroundColor: '#f9f9f9',
-            borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-          }}>
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h3 className="text-lg font-semibold mb-6 flex items-center">
+            <span className="mr-2">📈</span> Energy Usage
+          </h3>
+          <div className="h-[400px] bg-gray-50 rounded-lg flex items-center justify-center">
             {/* Empty container for the graph */}
           </div>
         </div>
