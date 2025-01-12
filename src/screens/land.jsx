@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './land.css';
-import meterImage from '../images/meter.png'; // Import the image
+import MeteroniQlogo from '../images/MeteroniQlogo.png'; // Import the image
 import Arrow from '../images/Arrow.png'; // Import the icon
 import MenuIcon from '../images/menu.png'; // Import the menu icon
 
@@ -16,14 +16,14 @@ const Land = () => {
     <div className="container">
       {/* Header Section */}
       <header className="header">
+        <img src={MeteroniQlogo} alt="MeteroniQ Logo" className="logo-image" /> {/* Use the imported image */}
         <div className="logo">MetroniQ</div>
         <img src={MenuIcon} alt="Menu Icon" className="menu-icon" onClick={toggleMenu} />
         <nav className={`nav ${menuOpen ? 'open' : ''}`}>
-          <a href="#">Products</a>
-          <a href="#">About us</a>
-          <a href="#">App</a>
-          <a href="#">FAQ</a>
-        </nav>
+         <Link to="/products">Products</Link>
+          <Link to="/aboutus">About us</Link>
+          <Link to="/app">App</Link>
+          <Link to="/faq">FAQ</Link>        </nav>
       </header>
 
       {/* Main Section */}
@@ -31,7 +31,7 @@ const Land = () => {
         {/* Left Section */}
         <section className="left">
           <h1>
-            Our first step towards <span className="highlight">sustainability</span>
+            Our first step<br/> towards<br/> <span className="highlight">sustainability</span>
           </h1>
           <p>Know more about our smart meters and smart plugs</p>
         </section>
@@ -41,7 +41,7 @@ const Land = () => {
           <div className="eb-access">
             <h2>EB access</h2>
             <p>Manage smart meter connections effortlessly</p>
-            <Link to="/dashboard" className="arrow-link">
+            <Link to="/login" className="arrow-link">
               <img src={Arrow} alt="Arrow Icon" /> {/* Use the imported icon */}
             </Link>
           </div>

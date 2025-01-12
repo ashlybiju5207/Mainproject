@@ -3,6 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Dashboard from './screens/dashboard';
 import PaymentDashboard from './screens/payments';
 import Reports from './screens/reports';
+import AboutUs from './screens/Aboutus';
+import Login from './screens/login';
+import Signup from './screens/signup';
+import './App.css';
+import '@fontsource/dm-sans';
 
 function App() {
   return (
@@ -12,6 +17,10 @@ function App() {
         <Route path="/payments" component={PaymentDashboard} />
         <Route path="/reports" component={Reports} />
         <Route path="/" exact component={Dashboard} />
+        <Route path="/aboutus" component={AboutUs} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+    
       </Switch>
     </Router>
   );

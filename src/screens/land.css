@@ -27,7 +27,15 @@ body, html {
 .logo {
   font-size: 1.5em;
   font-weight: bold;
-  color: #16a34a; /* Green */
+  color: #000000; /* Green */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  left: 400px;
+  
+}
+.logo span {
+  margin-left: 10px;
 }
 
 .menu-icon {
@@ -105,6 +113,8 @@ body, html {
   background-position: right bottom; /* Position the image towards the right bottom corner */
   background-repeat: no-repeat; /* Ensure the image does not repeat */
   min-height: 550px; /* Increase the height of the box */
+  border: 20px solid #7DDA57;
+  border-radius:50px;
 }
 
 .left h1 {
@@ -156,6 +166,14 @@ body, html {
   justify-content: center;
 }
 
+.eb-access:hover {
+  background-color: #a0a0a0; /* Change to a different color on hover */
+}
+
+.eb-access:active {
+  background-color: #8a8a8a; /* Change to a different color when clicked */
+}
+
 .contact-box {
   background-color: #7DDA57; /* Light green */
   padding: 30px;
@@ -168,7 +186,13 @@ body, html {
   flex-direction: column;
   justify-content: center;
 }
+.contact-box:hover {
+  background-color: #6CC84A; /* Change to a different color on hover */
+}
 
+.contact-box:active {
+  background-color: #5BB03D; /* Change to a different color when clicked */
+}
 .eb-access h2, .contact-box h2 {
   font-size: 2em;
   font-weight: bold;

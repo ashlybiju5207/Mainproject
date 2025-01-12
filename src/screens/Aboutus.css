@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 3.5em;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .highlight {
+    color: #22c55e; /* Change text color */
+
+    }
+  .about-section p {
+    padding: 50px 0px 0px 0px;
+    font-style: italic;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  .column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+  }
+  
+  .about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #323232;
+    color: rgb(255, 255, 255);
+  }  
+  .container {
+    padding: 8px; /* Adjust padding to shrink content space */
+    height: auto; /* Ensure it dynamically fits the content */
+    max-height: 100px; /* Set a maximum height to limit its size */
+    overflow: hidden; /* Hide content if it overflows */
+  }
+  
+  
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  .button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    margin: 0; /* No extra margin */
+  }  
+  .button:hover {
+    background-color: #555;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
