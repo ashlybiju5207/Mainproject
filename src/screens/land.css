@@ -30,9 +30,9 @@ body, html {
   color: #000000; /* Green */
   display: flex;
   align-items: center;
-  gap: 10px;
-  left: 400px;
-  
+  position: absolute;
+  left: 100px; /* Adjust positioning to align with the image */
+  top: 25px; /* Adjust positioning vertically */  
 }
 .logo span {
   margin-left: 10px;
