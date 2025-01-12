@@ -1,3 +1,4 @@
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -15,9 +16,9 @@
 
 @keyframes shake {
   0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
   100% { transform: translateX(0); }
 }
 
@@ -30,15 +31,15 @@ body, html {
   margin: 0;
 }
 
-.login {
+.forgotpass {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0; /* Apply background color only to the login page */
+  background-color: #f0f0f0; /* Apply background color only to the forgot password page */
 }
 
-.login .form .heading {
+.forgotpass .form .heading {
   font-size: 1.5em;
   font-weight: bold;
   color: #58bc82;
@@ -67,36 +68,6 @@ body, html {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.password-container {
-  position: relative;
-  width: 100%;
-}
-
-.password-container input {
-  width: 100%; /* Full width for the input */
-  border-radius: 0.5rem;
-  padding: 1rem 0.75rem;
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: var(--clr-alpha);
-  outline: 2px solid var(--bg-dark);
-  font-family: 'DM Sans', sans-serif; /* Apply DM Sans font */
-}
-
-.password-container input:focus {
-  outline: 2px solid var(--clr);
-}
-
-.eye-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
 }
 
 .form input[type="email"] {
@@ -141,13 +112,4 @@ body, html {
 .form .submit:hover {
   background-color: var(--clr);
   color: var(--bg-dark);
-}
-
-.span {
-  text-decoration: none;
-  color: var(--bg-dark);
-}
-
-.span a {
-  color: var(--clr);
 }

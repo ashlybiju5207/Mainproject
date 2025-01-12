@@ -7,6 +7,7 @@ import AboutUs from './screens/Aboutus';
 import Login from './screens/login';
 import Signup from './screens/signup';
 import './App.css';
+import Forgotpass from './screens/Forgotpass';  
 import '@fontsource/dm-sans';
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-    
+        <Route path="/Forgotpass" component={Forgotpass} />
+
       </Switch>
     </Router>
   );

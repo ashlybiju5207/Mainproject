@@ -7,6 +7,7 @@ import Reports from './screens/reports';
 import AboutUs from './screens/Aboutus';
 import Login from './screens/login';
 import Signup from './screens/signup';
+import Forgotpass from './screens/Forgotpass';  
 import './App.css';
 
 const AppRouter = () => (
@@ -19,7 +20,8 @@ const AppRouter = () => (
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      
+      <Route path="/Forgotpass" element={<Forgotpass/>} />
+
     </Routes>
   </Router>
 );

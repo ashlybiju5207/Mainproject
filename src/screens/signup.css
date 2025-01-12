@@ -1,99 +1,145 @@
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+.form.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
 body, html {
-    height: 100%;
-    margin: 0;
-  }
-.signup{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* Apply background color only to the login page */
-  }
-  .signup .form .heading  {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #58bc82;
-  }
+  height: 100%;
+  margin: 0;
+}
 
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Apply background color only to the signup page */
+}
 
+.signup .form .heading {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #58bc82;
+}
 
 .form {
-    --bg-light: #efefef;
-    --bg-dark: #707070;
-    --clr: #58bc82;
-    --clr-alpha: #9c9c9c60;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    width: 100%;
-    max-width: 300px;
-    background-color: white; /* Optional: Add a background color to the form */
-    padding: 2rem; /* Optional: Add padding to the form */
-    box-shadow: 0 4px 8px rgba(216, 22, 22, 0.1); /* Optional: Add a box shadow */
-    border-radius: 8px; /* Optional: Add border radius */
-    border: 5px solid #58bc82; /* Add green border */
-  }
-  
-  
-  .form .input-span {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .form input[type="email"],
-  .form input[type="password"] {
-    border-radius: 0.5rem;
-    padding: 1rem 0.75rem;
-    width: 100%;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: var(--clr-alpha);
-    outline: 2px solid var(--bg-dark);
-  }
-  
-  .form input[type="email"]:focus,
-  .form input[type="password"]:focus {
-    outline: 2px solid var(--clr);
-  }
-  
-  .label {
-    align-self: flex-start;
-    color: var(--clr);
-    font-weight: 600;
-  }
-  
-  .form .submit {
-    padding: 1rem 0.75rem;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 3rem;
-    background-color: var(--bg-dark);
-    color: var(--bg-light);
-    border: none;
-    cursor: pointer;
-    transition: all 300ms;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-  
-  .form .submit:hover {
-    background-color: var(--clr);
-    color: var(--bg-dark);
-  }
-  
-  .span {
-    text-decoration: none;
-    color: var(--bg-dark);
-  }
-  
-  .span a {
-    color: var(--clr);
-  }
-  
+  --bg-light: #efefef;
+  --bg-dark: #707070;
+  --clr: #58bc82;
+  --clr-alpha: #9c9c9c60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 300px;
+  background-color: white; /* Optional: Add a background color to the form */
+  padding: 2rem; /* Optional: Add padding to the form */
+  box-shadow: 0 4px 8px rgba(216, 22, 22, 0.1); /* Optional: Add a box shadow */
+  border-radius: 8px; /* Optional: Add border radius */
+  border: 5px solid #58bc82; /* Add green border */
+}
+
+.form .input-span {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%; /* Full width for the input */
+  border-radius: 0.5rem;
+  padding: 1rem 0.75rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--clr-alpha);
+  outline: 2px solid var(--bg-dark);
+  font-family: 'DM Sans', sans-serif; /* Apply DM Sans font */
+}
+
+.password-container input:focus {
+  outline: 2px solid var(--clr);
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.form input[type="email"] {
+  border-radius: 0.5rem;
+  padding: 1rem 0.75rem;
+  width: 100%;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--clr-alpha);
+  outline: 2px solid var(--bg-dark);
+  font-family: 'DM Sans', sans-serif; /* Apply DM Sans font */
+}
+
+.form input[type="email"]:focus {
+  outline: 2px solid var(--clr);
+}
+
+.label {
+  align-self: flex-start;
+  color: var(--clr);
+  font-weight: 600;
+}
+
+.form .submit {
+  padding: 1rem 0.75rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 3rem;
+  background-color: var(--bg-dark);
+  color: var(--bg-light);
+  border: none;
+  cursor: pointer;
+  transition: all 300ms;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form .submit:hover {
+  background-color: var(--clr);
+  color: var(--bg-dark);
+}
