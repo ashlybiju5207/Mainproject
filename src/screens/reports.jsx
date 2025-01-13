@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, MoreVertical } from 'lucide-react';
+import PrintReportButton from '../components/PrintReportButton';
+import './print.css';
 
 const Reports = () => {
   const location = useLocation();
@@ -53,7 +55,7 @@ const Reports = () => {
 
           {/* Report Section */}
           <div className="bg-white rounded-lg shadow">
-            <div className="p-6">
+            <div className="p-6" id="pdf-content">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">Report</h2>
                 <button className="p-2 hover:bg-gray-100 rounded-full">
@@ -89,6 +91,8 @@ const Reports = () => {
                   ))}
                 </tbody>
               </table>
+              {/* Add PrintReportButton here */}
+              <PrintReportButton contentId="pdf-content" />
             </div>
           </div>
         </div>
