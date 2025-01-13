@@ -68,7 +68,7 @@ const AboutUs = () => {
               <img src={aadarsh} alt="Aadarsh" />
             </div>
             <div className="member-info">
-              <h2>Aadarsh Rajesh Kumar</h2>
+              <h2>Aadarsh Rajesh</h2>
               <p className="title">Web Developer</p>
               <p>aadarsh.csa2125@saintgits.org</p>
               <button className="contact-btn">Contact</button>
