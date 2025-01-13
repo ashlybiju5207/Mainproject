@@ -1,0 +1,30 @@
+@media print {
+    /* Hide elements we don't want to print */
+    .w-64,
+    button,
+    nav {
+      display: none !important;
+    }
+  
+    /* Reset flex for printing */
+    .flex {
+      display: block !important;
+    }
+  
+    /* Ensure content is printable */
+    .overflow-auto {
+      overflow: visible !important;
+    }
+  
+    /* Make sure table prints properly */
+    table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+    }
+  
+    td, th {
+      color: black !important;
+      border-bottom: 1px solid #ddd !important;
+      padding: 8px !important;
+    }
+  }

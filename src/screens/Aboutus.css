@@ -1,89 +1,256 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Typography */
+h1 {
+  font-size: 3.5em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.highlight {
+  color: #22c55e;
+}
+
+/* About Section - Preserved */
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #323232;
+  color: rgb(255, 255, 255);
+}
+
+.about-section p {
+  padding: 50px 0px 0px 0px;
+  font-style: italic;
+}
+
+/* Team Section - Updated */
+.about-wrapper {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.team-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  margin-top: 20px;
+  padding: 20px;
+  height: auto;
+}
+
+.team-column {
+  flex: 0 1 280px;
+  min-width: 280px;
+  display: flex;
+}
+
+.team-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #22c55e;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #22c55e;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+  flex-shrink: 0;
+}
+
+member-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.member-info p {
+  text-align: center;
+  margin: 8px 0;
+}
+
+.member-info p:last-of-type {
+  margin-bottom: 20px;  /* Add space before contact button */
+}
+.contact-btn {
+  margin-top: 15px;  /* Add space after email */
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 0 #15803d,
+              0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #15803d,
+              0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #15803d,
+              0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+  .team-row {
+    flex-wrap: wrap;
   }
   
-  html {
-    box-sizing: border-box;
+  .team-column {
+    flex: 0 1 calc(50% - 30px);
   }
+}
+
+@media screen and (max-width: 650px) {
+  .team-column {
+    flex: 0 1 100%;
+  }
+  
   h1 {
-    font-size: 3.5em;
-    font-weight: 600;
-    line-height: 1.2;
+    font-size: 2.5em;
   }
-  
-  h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
+}
 
-  .highlight {
-    color: #22c55e; /* Change text color */
+.about-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+}
 
-    }
-  .about-section p {
-    padding: 50px 0px 0px 0px;
-    font-style: italic;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-  
-  .column {
-    float: left;
-    width: 25%;
-    margin-bottom: 16px;
-    padding: 0 8px;
-  }
-  
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 8px;
-  }
-  
-  .about-section {
-    padding: 50px;
+.header-section {
+  padding: 1.5rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-section h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  line-height: 1.2;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.highlight {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.header-section p {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  color: #666;
+  max-width: 800px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .header-section h1 {
+    font-size: 1.8rem;
+    flex-direction: column;
+    white-space: normal;
     text-align: center;
-    background-color: #323232;
-    color: rgb(255, 255, 255);
-  }  
-  .container {
-    padding: 8px; /* Adjust padding to shrink content space */
-    height: auto; /* Ensure it dynamically fits the content */
-    max-height: 100px; /* Set a maximum height to limit its size */
-    overflow: hidden; /* Hide content if it overflows */
   }
-  
-  
-  .container::after, .row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
-  
-  .title {
-    color: grey;
-  }
-  
-  .button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-    margin: 0; /* No extra margin */
-  }  
-  .button:hover {
-    background-color: #555;
-  }
-  
-  @media screen and (max-width: 650px) {
-    .column {
-      width: 100%;
-      display: block;
-    }
-  }
+}
+
+#our-team {
+  text-align: center;
+  color: #333;
+  font-size: 1.8rem;
+  margin: 1rem 0;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+#our-team::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: #22c55e;
+  border-radius: 2px;
+}
+.team-card .member-info h2 {
+  font-size: 1.8rem;
+  margin: 10px 0;
+  color: #333;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Mission Vision headings */
+.mission-vision-section .team-card .member-info h2 {
+  color: #22c55e;
+  text-shadow: 0 2px 4px rgba(34, 197, 94, 0.1);
+}
+
+.mission-vision-section .team-card:hover .member-info h2 {
+  transform: translateY(-2px);
+  text-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
+}
