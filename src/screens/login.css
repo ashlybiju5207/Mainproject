@@ -54,7 +54,8 @@ body, html {
   align-items: center;
   gap: 2rem;
   width: 100%;
-  max-width: 300px;
+
+  max-width: 500px !important; /* Increase the max-width to make the form wider and add !important */
   background-color: white; /* Optional: Add a background color to the form */
   padding: 2rem; /* Optional: Add padding to the form */
   box-shadow: 0 4px 8px rgba(216, 22, 22, 0.1); /* Optional: Add a box shadow */

@@ -2,6 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons from react-icons
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBkYXqZSYCZq1N6pzr60GWkG5nS3f_EELA",
+  authDomain: "metroniq-bdde0.firebaseapp.com",
+  projectId: "metroniq-bdde0",
+  storageBucket: "metroniq-bdde0.firebasestorage.app",
+  messagingSenderId: "765262722554",
+  appId: "1:765262722554:web:613754030c0bbbc52fe043",
+  measurementId: "G-6JKPXTKRP8"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +31,7 @@ const Login = () => {
     form.classList.add('fade-in');
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -26,13 +43,11 @@ const Login = () => {
       return;
     }
 
-    const allowedEmail = 'kseb@example.com'; // Replace with the allowed email ID
-    const allowedPassword = 'kseb123'; // Replace with the allowed password
-
-    if (email === allowedEmail && password === allowedPassword) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       // Redirect to the dashboard or another page
       window.location.href = '/dashboard';
-    } else {
+    } catch (error) {
       setShake(true);
       setTimeout(() => {
         setShake(false);
