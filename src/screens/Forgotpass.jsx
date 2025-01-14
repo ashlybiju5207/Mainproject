@@ -5,13 +5,13 @@ import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBkYXqZSYCZq1N6pzr60GWkG5nS3f_EELA",
-  authDomain: "metroniq-bdde0.firebaseapp.com",
-  projectId: "metroniq-bdde0",
-  storageBucket: "metroniq-bdde0.firebasestorage.app",
-  messagingSenderId: "765262722554",
-  appId: "1:765262722554:web:613754030c0bbbc52fe043",
-  measurementId: "G-6JKPXTKRP8"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
