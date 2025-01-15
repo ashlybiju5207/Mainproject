@@ -4,6 +4,8 @@ import ashly from '../images/ashly.jpeg';
 import abhinand from '../images/abhinand.jpg';
 import anjana from '../images/anjana.jpg';
 import aadarsh from '../images/aadarsh.jpg';
+import missionImage from '../images/mission.png';
+import visionImage from '../images/vision.png';
 
 const AboutUs = () => {
   return (
@@ -81,22 +83,26 @@ const AboutUs = () => {
         <div className="team-row">
           <div className="team-column">
             <div className="team-card">
-              <div className="mission-icon">🎯</div>
-              <div className="member-info">
+              <div className="profile-image">
+                <img src={missionImage} alt="Our Mission" />
+              </div>
+              <div className="member-infom">
                 <h2>Our Mission</h2>
                 <p className="title">Purpose Driven Solutions</p>
-                <p>To revolutionize energy monitoring through innovative technology, making sustainable energy management accessible and efficient for everyone.</p>
+                <p id='exp'>To revolutionize energy monitoring through innovative technology, making sustainable energy management accessible and efficient for everyone.</p>
               </div>
             </div>
           </div>
 
           <div className="team-column">
             <div className="team-card">
-              <div className="mission-icon">👁️</div>
-              <div className="member-info">
+              <div className="profile-image">
+                <img src={visionImage} alt="Our Vision" />
+              </div>
+              <div className="member-infom">
                 <h2>Our Vision</h2>
                 <p className="title">Future Forward</p>
-                <p>To be the global leader in smart energy solutions, driving the transition towards a more sustainable and energy-efficient future.</p>
+                <p id='exp'>To be the global leader in smart energy solutions, driving the transition towards a more sustainable and energy-efficient future.</p>
               </div>
             </div>
           </div>
