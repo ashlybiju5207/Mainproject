@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+import dashboardIcon from '../images/dash.png';
+import paymentsIcon from '../images/payments.png';
+import reportsIcon from '../images/report.png'; // Corrected file name
 import './dashboard.css';
 
 const PaymentDashboard = () => {
@@ -29,19 +32,19 @@ const PaymentDashboard = () => {
             <ul className="space-y-1">
               <li>
                 <Link to="/dashboard" className={`flex items-center p-2 rounded-lg ${location.pathname === '/dashboard' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  <span className="mr-3">📊</span>
+                  <img src={dashboardIcon} alt="Dashboard" className="mr-3" style={{ width: '20px', height: '20px' }} />
                   Dashboard
                 </Link>
               </li>
               <li>
                 <Link to="/payments" className={`flex items-center p-2 rounded-lg ${location.pathname === '/payments' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  <span className="mr-3">📄</span>
+                  <img src={paymentsIcon} alt="Payments" className="mr-3" style={{ width: '20px', height: '20px' }} />
                   Payments
                 </Link>
               </li>
               <li>
                 <Link to="/reports" className={`flex items-center p-2 rounded-lg ${location.pathname === '/reports' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  <span className="text-green-500 mr-3">📊</span>
+                  <img src={reportsIcon} alt="Reports" className="mr-3" style={{ width: '20px', height: '20px' }} />
                   Reports
                 </Link>
               </li>
@@ -54,9 +57,14 @@ const PaymentDashboard = () => {
       <div className="flex-1 overflow-auto">
         <div className="max-w-7xl mx-auto py-6 px-4">
           {/* Breadcrumb */}
-          <div className="text-sm text-gray-600 mb-6">
-            MetroniQ/EB access/Payments/
-            <span className="text-green-500">Kurishmoodu Branch</span>
+          <div className="flex justify-between items-center mb-6">
+            <div className="text-sm text-gray-600">
+              MetroniQ/EB access/Payments/
+              <span className="text-green-500">Kurishmoodu Branch</span>
+            </div>
+            <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={() => { window.location.href = '/'; /* Add logout logic here */ }}>
+              Logout
+            </button>
           </div>
 
           {/* Payment Details Section */}

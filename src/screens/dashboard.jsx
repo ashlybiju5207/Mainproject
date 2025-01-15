@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import dashboardIcon from '../images/dash.png';
+import paymentsIcon from '../images/payments.png';
+import reportsIcon from '../images/report.png'; // Corrected file name
 
 function Dashboard() {
   const location = useLocation();
@@ -12,15 +15,15 @@ function Dashboard() {
           <h2 className="text-lg font-semibold mb-6">EB Access</h2>
           <nav className="space-y-1">
             <Link to="/dashboard" className={`flex items-center p-2 rounded-lg ${location.pathname === '/dashboard' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <span className="mr-3">⬚</span>
+              <img src={dashboardIcon} alt="Dashboard" className="mr-3 w-5 h-5" />
               Dashboard
             </Link>
             <Link to="/payments" className={`flex items-center p-2 rounded-lg ${location.pathname === '/payments' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <span className="text-green-500 mr-3">📄</span>
+              <img src={paymentsIcon} alt="Payments" className="mr-3 w-5 h-5" />
               Payments
             </Link>
             <Link to="/reports" className={`flex items-center p-2 rounded-lg ${location.pathname === '/reports' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <span className="text-green-500 mr-3">📊</span>
+              <img src={reportsIcon} alt="Reports" className="mr-3 w-5 h-5" />
               Reports
             </Link>
           </nav>
@@ -29,9 +32,14 @@ function Dashboard() {
 
       {/* Main Content */}
       <div className="flex-1 p-6">
-        <div className="mb-8">
-          MetroniQ/EB access/Dashboard/
-          <span className="text-green-500">Kurishmoodu Branch</span>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            MetroniQ/EB access/Dashboard/
+            <span className="text-green-500">Kurishmoodu Branch</span>
+          </div>
+          <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={() => { window.location.href = '/'; /* Add logout logic here */ }}>
+            Logout
+          </button>
         </div>
 
         {/* Stats Cards */}

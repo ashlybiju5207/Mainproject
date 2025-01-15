@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import AppRouter from './router';
 import reportWebVitals from './reportWebVitals';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 // Firebase configuration
@@ -20,8 +20,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+if (!getApps().length) {
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
