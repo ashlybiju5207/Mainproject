@@ -32,15 +32,15 @@ const Reports = () => {
           <h2 className="text-lg font-semibold mb-6">EB Access</h2>
           <nav className="space-y-1">
             <Link to="/dashboard" className={`flex items-center p-2 rounded-lg ${location.pathname === '/dashboard' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <img src={dashboardIcon} alt="Dashboard" className="mr-3 w-6 h-6" />
+              <img src={dashboardIcon} alt="Dashboard" className="mr-3 w-5 h-5" />
               Dashboard
             </Link>
             <Link to="/payments" className={`flex items-center p-2 rounded-lg ${location.pathname === '/payments' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <img src={paymentsIcon} alt="Payments" className="mr-3 w-6 h-6" />
+              <img src={paymentsIcon} alt="Payments" className="mr-3 w-5 h-5" />
               Payments
             </Link>
             <Link to="/reports" className={`flex items-center p-2 rounded-lg ${location.pathname === '/reports' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <img src={reportsIcon} alt="Reports" className="mr-3 w-6 h-6" />
+              <img src={reportsIcon} alt="Reports" className="mr-3 w-5 h-5" />
               Reports
             </Link>
           </nav>
