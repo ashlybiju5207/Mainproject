@@ -6,12 +6,14 @@ body, html {
   background-color: #f3f4f6; /* Light background */
   height: 100%;
   width: 100%;
+  overflow-y: auto; /* Allow vertical scrolling */
 }
 
 .container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-y: auto; /* Allow vertical scrolling */
 }
 
 /* Header Styling */
@@ -22,6 +24,7 @@ body, html {
   padding: 20px 40px;
   background-color: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Add this line to make the header a positioning context */
 }
 
 .logo {
@@ -31,8 +34,8 @@ body, html {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 100px; /* Adjust positioning to align with the image */
-  top: 25px; /* Adjust positioning vertically */  
+  left: 100px;
+  top: 25px;  
 }
 .logo span {
   margin-left: 10px;
@@ -95,6 +98,9 @@ body, html {
   justify-content: space-between;
   padding: 60px;
   gap: 30px;
+  padding-top: 80px; /* Adjust this value based on the height of your header */
+  flex: 1; /* Ensure the main section takes up remaining space */
+  overflow-y: auto; /* Allow vertical scrolling within the main section */
 }
 
 /* Left Section */
@@ -259,4 +265,13 @@ body, html {
     font-size: 2em;
     right: 15px;
   }
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white; /* Ensure the background color matches the design */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Dashboard from './screens/dashboard';
-import PaymentDashboard from './screens/payments';
+import Dashboard from './screens/Dashboard';
+import PaymentDashboard from './screens/Payments';
 import Reports from './screens/reports';
 import AboutUs from './screens/Aboutus';
 import Login from './screens/login';
 import Signup from './screens/signup';
 import './App.css';
-import Forgotpass from './screens/Forgotpass';  
+import ForgotPass from './screens/Forgotpass';  
 import '@fontsource/dm-sans';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/Forgotpass" component={Forgotpass} />
+        <Route path="/forgotpass" component={ForgotPass} />
 
       </Switch>
     </Router>
