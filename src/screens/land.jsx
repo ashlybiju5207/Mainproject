@@ -68,6 +68,11 @@ const Land = () => {
           </div>
         </aside>
       </main>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} All Rights Reserved by MetroniQ</p>
+      </footer>
     </div>
   );
 };

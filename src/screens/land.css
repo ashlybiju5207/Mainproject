@@ -275,3 +275,20 @@ body, html {
   background-color: white; /* Ensure the background color matches the design */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
 }
+
+.footer {
+  background-color: #000000; /* Change to black */
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: relative; /* Change to relative to avoid overlap with other content */
+}
+
+.footer p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center; /* Ensure text is center-aligned */
+}
