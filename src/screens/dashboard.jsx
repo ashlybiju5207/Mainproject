@@ -1,16 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-<<<<<<< HEAD
-import dashboardIcon from '../images/dash.png';
-import paymentsIcon from '../images/payments.png';
-import reportsIcon from '../images/report.png'; // Corrected file name
-=======
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { BarChart2 } from 'lucide-react';
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png';
->>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
 
 function Dashboard() {
   const location = useLocation();
