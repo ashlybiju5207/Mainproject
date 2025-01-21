@@ -8,6 +8,7 @@ import AboutUs from './screens/Aboutus';
 import Login from './screens/login';
 import Signup from './screens/signup';
 import Forgotpass from './screens/Forgotpass';  
+import Products from './screens/products'; // Import the Products component
 import './App.css';
 
 const AppRouter = () => (
@@ -21,7 +22,7 @@ const AppRouter = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/Forgotpass" element={<Forgotpass/>} />
-
+      <Route path="/products" element={<Products />} /> {/* Add the Products route */}
     </Routes>
   </Router>
 );

@@ -25,6 +25,11 @@ body, html {
   background-color: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   position: relative; /* Add this line to make the header a positioning context */
+<<<<<<< HEAD
+=======
+  width: 100%; /* Make the header width dynamic */
+  box-sizing: border-box; /* Include padding in the width calculation */
+>>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
 }
 
 .logo {
@@ -39,6 +44,11 @@ body, html {
 }
 .logo span {
   margin-left: 10px;
+}
+
+.logo-image {
+  width: 50px; /* Reduce the width */
+  height: auto;
 }
 
 .menu-icon {
@@ -115,12 +125,12 @@ body, html {
   justify-content: space-between;
   position: relative; /* Make it relative to position the overlay text */
   background-image: url('../images/meter.png'); /* Set the background image */
-  background-size: 500px; /* Reduce the size of the image */
+  background-size: contain; /* Ensure the image scales dynamically */
   background-position: right bottom; /* Position the image towards the right bottom corner */
   background-repeat: no-repeat; /* Ensure the image does not repeat */
   min-height: 550px; /* Increase the height of the box */
   border: 20px solid #7DDA57;
-  border-radius:50px;
+  border-radius: 50px;
 }
 
 .left h1 {
@@ -233,6 +243,7 @@ body, html {
   .left {
     padding: 40px;
     margin-bottom: 20px;
+    background-size: 80%; /* Adjust the image size for smaller screens */
   }
 
   .eb-access, .contact-box {
@@ -255,6 +266,7 @@ body, html {
 
   .left {
     padding: 30px;
+    background-size: 60%; /* Further adjust the image size for smaller screens */
   }
 
   .eb-access, .contact-box {
@@ -274,4 +286,24 @@ body, html {
   z-index: 1000;
   background-color: white; /* Ensure the background color matches the design */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+<<<<<<< HEAD
+=======
+}
+
+.footer {
+  background-color: #000000; /* Change to black */
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: relative; /* Change to relative to avoid overlap with other content */
+}
+
+.footer p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center; /* Ensure text is center-aligned */
+>>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
 }

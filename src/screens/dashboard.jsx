@@ -1,11 +1,28 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart2 } from 'lucide-react';
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
-import reportsIcon from '../images/report.png'; // Corrected file name
+import reportsIcon from '../images/report.png';
 
 function Dashboard() {
   const location = useLocation();
+
+  const data = [
+    { time: 'Jan', kWh: 120 },
+    { time: 'Feb', kWh: 150 },
+    { time: 'Mar', kWh: 180 },
+    { time: 'Apr', kWh: 200 },
+    { time: 'May', kWh: 250 },
+    { time: 'Jun', kWh: 300 },
+    { time: 'Jul', kWh: 270 },
+    { time: 'Aug', kWh: 240 },
+    { time: 'Sep', kWh: 210 },
+    { time: 'Oct', kWh: 180 },
+    { time: 'Nov', kWh: 150 },
+    { time: 'Dec', kWh: 120 },
+  ];
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -87,10 +104,20 @@ function Dashboard() {
         {/* Energy Usage Section */}
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h3 className="text-lg font-semibold mb-6 flex items-center">
-            <span className="mr-2">📈</span> Energy Usage
+            <BarChart2 className="mr-2" /> Energy Usage
           </h3>
           <div className="h-[400px] bg-gray-50 rounded-lg flex items-center justify-center">
-            {/* Empty container for the graph */}
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottomRight', offset: -5 }} />
+                <YAxis label={{ value: 'kWh', angle: -90, position: 'insideLeft' }} />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="kWh" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Bar dataKey="Time" fill="#82ca9d" />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>

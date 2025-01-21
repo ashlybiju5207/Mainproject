@@ -81,33 +81,34 @@ const AboutUs = () => {
 
       <div className="mission-vision-section">
         <div className="team-row">
-          <div className="team-column" style={{ flex: '0 1 calc(50% - 15px)' }}>
+          <div className="team-column">
             <div className="team-card">
-              <div className="mission-icon">
-                <img src={missionImage} alt="Our Mission" />
-              </div>
-              <div className="mission-info">
+              <div className="mission-icon">🎯</div>
+              <div className="member-info">
                 <h2>Our Mission</h2>
-                <p className="mission-title">Purpose Driven Solutions</p>
-                <p id='mission-desc'>To revolutionize energy monitoring through innovative technology, making sustainable energy management accessible and efficient for everyone.</p>
+                <p className="title">Purpose Driven Solutions</p>
+                <p>To revolutionize energy monitoring through innovative technology, making sustainable energy management accessible and efficient for everyone.</p>
               </div>
             </div>
           </div>
 
-          <div className="team-column" style={{ flex: '0 1 calc(50% - 15px)' }}>
+          <div className="team-column">
             <div className="team-card">
-              <div className="vision-icon">
-                <img src={visionImage} alt="Our Vision" />
-              </div>
-              <div className="vision-info">
+              <div className="mission-icon">👁️</div>
+              <div className="member-info">
                 <h2>Our Vision</h2>
-                <p className="vision-title">Future Forward</p>
-                <p id='vision-desc'>To be the global leader in smart energy solutions, driving the transition towards a more sustainable and energy-efficient future.</p>
+                <p className="title">Future Forward</p>
+                <p>To be the global leader in smart energy solutions, driving the transition towards a more sustainable and energy-efficient future.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} All Rights Reserved by MetroniQ</p>
+      </footer>
     </div>
   );
 };
