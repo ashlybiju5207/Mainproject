@@ -6,6 +6,7 @@ import Reports from './screens/reports';
 import AboutUs from './screens/Aboutus';
 import Login from './screens/login';
 import Signup from './screens/signup';
+import Products from './screens/products'; // Import the Products component
 import './App.css';
 import ForgotPass from './screens/Forgotpass';  
 import '@fontsource/dm-sans';
@@ -22,7 +23,11 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/forgotpass" component={ForgotPass} />
+<<<<<<< HEAD
 
+=======
+        <Route path="/products" component={Products} /> {/* Add the Products route */}
+>>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
       </Switch>
     </Router>
   );

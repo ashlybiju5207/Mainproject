@@ -33,9 +33,8 @@ const Land = () => {
         <div className="logo">MetroniQ</div>
         <img src={MenuIcon} alt="Menu Icon" className="menu-icon" onClick={toggleMenu} />
         <nav className={`nav ${menuOpen ? 'open' : ''}`}>
-          <Link to="/products">Products</Link>
+          <Link to="/products">Products</Link> {/* Ensure this directs to Products.jsx */}
           <Link to="/aboutus">About us</Link>
-          <Link to="/app">App</Link>
           <Link to="/faq">FAQ</Link>
         </nav>
       </header>
@@ -68,6 +67,11 @@ const Land = () => {
           </div>
         </aside>
       </main>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} All Rights Reserved by MetroniQ</p>
+      </footer>
     </div>
   );
 };
