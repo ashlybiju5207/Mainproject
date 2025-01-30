@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { firestore } from '../firebase/config';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, collection } from 'firebase/firestore';
 
 const PaymentDashboard = () => {
   const [paymentData, setPaymentData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        // Fetch specific user data
-        const userRef = doc(firestore, 'Users', '12345ABC');
-        const userDoc = await getDoc(userRef);
-        
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setPaymentData([{
-            name: userData.name || 'Unknown',
-            address: userData.address || 'Not specified',
-            date: new Date().toLocaleDateString(),
-            amount: `Rs. ${userData.balance_amount || 0}`,
-            billing_plan: userData.billing_plan || 'Not specified'
-          }]);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setLoading(false);
-      }
-    };
+    const userRef = collection(firestore, 'Users');
+    
+    const unsubscribe = onSnapshot(userRef, (snapshot) => {
+      const users = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        users.push({
+          id: doc.id,
+          name: data.name,
+          address: data.address,
+          date: new Date().toLocaleDateString(),
+          amount: `Rs. ${data.balance_amount}`,
+          plan: data.billing_plan
+        });
+      });
+      setPaymentData(users);
+      setLoading(false);
+    });
 
-    fetchUserData();
+    return () => unsubscribe();
   }, []);
-
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -77,7 +72,7 @@ const PaymentDashboard = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {paymentData.map((payment, index) => (
-                    <tr key={index}>
+                    <tr key={payment.id || index}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {payment.name}
                       </td>
@@ -91,7 +86,7 @@ const PaymentDashboard = () => {
                         {payment.amount}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {payment.billing_plan}
+                        {payment.plan}
                       </td>
                     </tr>
                   ))}
