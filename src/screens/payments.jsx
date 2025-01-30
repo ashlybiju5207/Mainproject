@@ -1,118 +1,105 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
-import dashboardIcon from '../images/dash.png';
-import paymentsIcon from '../images/payments.png';
-import reportsIcon from '../images/report.png'; // Corrected file name
-import './dashboard.css';
+import React, { useState, useEffect } from 'react';
+import { firestore } from '../firebase/config';
+import { doc, getDoc } from 'firebase/firestore';
 
 const PaymentDashboard = () => {
-  const location = useLocation();
-  const payments = [
-    { id: 1, user: "Mithilesh Kumar Singh", address: "Kritipur, Kathmandu", date: "12.Jan.2021", amount: 2500 },
-    { id: 2, user: "Suron Maharjan", address: "Natole, Lalitpur", date: "21.Feb.2021", amount: 4000 },
-    { id: 3, user: "Sandesh Bajracharya", address: "Bhinchhebahal, Lalitpur", date: "13.Mar.2021", amount: 800 },
-    { id: 4, user: "Subin Sedhai", address: "Baneshwor, Kathmandu", date: "24.Jan.2021", amount: 1500 },
-    { id: 5, user: "Wonjala Joshi", address: "Bhaisepati, Lalitpur", date: "21.Sep.2021", amount: 4500 },
-    { id: 6, user: "Numa Limbu", address: "Sampang Chowk,Dharan", date: "21.Sep.2021", amount: 2455 },
-    { id: 7, user: "Nimesh Sthapit", address: "Newroad, Pokhara", date: "21.Sep.2021", amount: 1800 },
-    { id: 8, user: "Samikshya Basnet", address: "Nakhipot, Lalitpur", date: "21.Sep.2021", amount: 1000 },
-    { id: 9, user: "Sushant Kushwar", address: "Sinamangal, Kathmandu", date: "21.Sep.2021", amount: 3500 },
-    { id: 10, user: "Hrishav Gajurel", address: "Khumaltar, Lalitpur", date: "21.Sep.2021", amount: 3200 },
-    { id: 11, user: "Tisha Joshi", address: "Ason, Kathmandu", date: "21.Sep.2021", amount: 1900 }
-  ];
+  const [paymentData, setPaymentData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // Fetch specific user data
+        const userRef = doc(firestore, 'Users', '12345ABC');
+        const userDoc = await getDoc(userRef);
+        
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setPaymentData([{
+            name: userData.name || 'Unknown',
+            address: userData.address || 'Not specified',
+            date: new Date().toLocaleDateString(),
+            amount: `Rs. ${userData.balance_amount || 0}`,
+            billing_plan: userData.billing_plan || 'Not specified'
+          }]);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className="w-64 bg-white border-r border-gray-200">
-        <div className="p-6">
-          <h2 className="text-lg font-semibold mb-6">EB Access</h2>
-          <nav>
-            <ul className="space-y-1">
-              <li>
-                <Link to="/dashboard" className={`flex items-center p-2 rounded-lg ${location.pathname === '/dashboard' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  <img src={dashboardIcon} alt="Dashboard" className="mr-3" style={{ width: '20px', height: '20px' }} />
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link to="/payments" className={`flex items-center p-2 rounded-lg ${location.pathname === '/payments' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  <img src={paymentsIcon} alt="Payments" className="mr-3" style={{ width: '20px', height: '20px' }} />
-                  Payments
-                </Link>
-              </li>
-              <li>
-                <Link to="/reports" className={`flex items-center p-2 rounded-lg ${location.pathname === '/reports' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-                  <img src={reportsIcon} alt="Reports" className="mr-3" style={{ width: '20px', height: '20px' }} />
-                  Reports
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <div className="max-w-7xl mx-auto py-6 px-4">
-          {/* Breadcrumb */}
-          <div className="flex justify-between items-center mb-6">
-            <div className="text-sm text-gray-600">
-              MetroniQ/EB access/Payments/
-              <span className="text-green-500">Kurishmoodu Branch</span>
-            </div>
-            <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={() => { window.location.href = '/'; /* Add logout logic here */ }}>
-              Logout
-            </button>
+      {/* Sidebar remains same */}
+      
+      <div className="flex-1 p-6">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            MetroniQ/EB access/Payments/
+            <span className="text-green-500">Kurishmoodu Branch</span>
           </div>
+          <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500">
+            Logout
+          </button>
+        </div>
 
-          {/* Payment Details Section */}
-          <div className="bg-white rounded-lg shadow">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Payment Details</h2>
-                <div className="flex space-x-2">
-                  <button className="px-4 py-1 text-gray-600 bg-gray-100 rounded-full">
-                    Prepaid
-                  </button>
-                  <button className="px-4 py-1 text-white bg-green-500 rounded-full">
-                    Postpaid
-                  </button>
-                </div>
-              </div>
-
-              <table className="w-full">
+        {loading ? (
+          <div className="text-center">Loading payment data...</div>
+        ) : (
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-lg font-semibold mb-6">Payment History</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
                 <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Users <ChevronDown className="inline h-4 w-4" />
+                  <tr className="bg-gray-50">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Name
                     </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Address <ChevronDown className="inline h-4 w-4" />
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Address
                     </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Date <ChevronDown className="inline h-4 w-4" />
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Date
                     </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Amount <ChevronDown className="inline h-4 w-4" />
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Amount
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Plan
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {payments.map((payment) => (
-                    <tr key={payment.id} className="border-b last:border-b-0">
-                      <td className="py-3 px-4 text-blue-600">{payment.user}</td>
-                      <td className="py-3 px-4 text-gray-600">{payment.address}</td>
-                      <td className="py-3 px-4 text-gray-600">{payment.date}</td>
-                      <td className="py-3 px-4 text-gray-600">Rs. {payment.amount}</td>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {paymentData.map((payment, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {payment.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {payment.address}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {payment.date}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {payment.amount}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {payment.billing_plan}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

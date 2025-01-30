@@ -270,25 +270,18 @@ member-info {
 
 .mission-vision-section .team-card:hover .member-info h2 {
   transform: translateY(-2px);
-<<<<<<< HEAD
-  text-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
-=======
   text-shadow: 0 0 10px #22c55e, 
                0 0 20px #22c55e, 
                0 0 30px #22c55e, 
                0 0 40px #22c55e, 
                0 0 50px #22c55e, 
                0 0 60px #22c55e; /* Add green fire glow effect */
->>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
 }
 
 .mission-vision-section .team-card {
   padding: 30px; /* Increase padding for larger size */
   text-align: center; /* Center-align text */
   width: 100%; /* Increase width */
-<<<<<<< HEAD
-  max-width: 600px; /* Set a maximum width */
-=======
   max-width: var(--mission-vision-card-width, 250%); /* Set a maximum width with a CSS variable */
   margin: 0 auto; /* Center the card */
 }
@@ -298,7 +291,6 @@ member-info {
   text-align: center; /* Center-align text */
   width: 90%; /* Increase width */
   max-width: var(--mission-vision-card-width, 600px); /* Set a maximum width with a CSS variable */
->>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
   margin: 0 auto; /* Center the card */
 }
 
@@ -306,10 +298,6 @@ member-info {
   text-align: center; /* Center-align text */
 }
 
-<<<<<<< HEAD
-#exp{
-  text-align: center;
-=======
 .mission-vision-section {
   display: flex;
   justify-content: center;
@@ -352,5 +340,4 @@ member-info {
   margin: 0;
   font-size: 1rem;
   text-align: center; /* Ensure text is center-aligned */
->>>>>>> cb21d1e730cd753a368542462db28aaa288d6edb
 }
