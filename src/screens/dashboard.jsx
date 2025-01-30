@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, defs, linearGradient, stop } from 'recharts';
 import { BarChart2 } from 'lucide-react';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase'; // Import Firestore instance
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png';
 
 function Dashboard() {
   const location = useLocation();
+  const [data, setData] = useState([]);
 
-  const data = [
-    { time: 'Jan', kWh: 120 },
-    { time: 'Feb', kWh: 150 },
-    { time: 'Mar', kWh: 180 },
-    { time: 'Apr', kWh: 200 },
-    { time: 'May', kWh: 250 },
-    { time: 'Jun', kWh: 300 },
-    { time: 'Jul', kWh: 270 },
-    { time: 'Aug', kWh: 240 },
-    { time: 'Sep', kWh: 210 },
-    { time: 'Oct', kWh: 180 },
-    { time: 'Nov', kWh: 150 },
-    { time: 'Dec', kWh: 120 },
-  ];
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'Users/12345ABC/Consumption'), (querySnapshot) => {
+      const data = querySnapshot.docs.map(doc => {
+        const timestamp = doc.data().timestamp;
+        if (timestamp && timestamp.includes('at')) {
+          const timePart = timestamp.split('at')[1].trim().split(' ')[0]; // Extract only the time part
+          const [hours, minutes, seconds] = timePart.split(':');
+          const ampm = timestamp.includes('PM') ? 'PM' : 'AM';
+          const time = `${hours}:${minutes} ${ampm}`; // Format as hour:minutes am/pm
+          return {
+            time: time,
+            kWh: doc.data().kwh_consumed
+          };
+        }
+        return null;
+      }).filter(item => item !== null); // Filter out any null values
+      setData(data);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -108,15 +118,20 @@ function Dashboard() {
           </h3>
           <div className="h-[400px] bg-gray-50 rounded-lg flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <BarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <defs>
+                  <linearGradient id="colorKWh" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#16a34a" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#16a34a" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottomRight', offset: -5 }} />
                 <YAxis label={{ value: 'kWh', angle: -90, position: 'insideLeft' }} />
-                <Tooltip />
+                <Tooltip contentStyle={{ backgroundColor: '#f3f4f6', border: 'none', borderRadius: '10px' }} />
                 <Legend />
-                <Line type="monotone" dataKey="kWh" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Bar dataKey="Time" fill="#82ca9d" />
-              </LineChart>
+                <Bar dataKey="kWh" fill="url(#colorKWh)" />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>

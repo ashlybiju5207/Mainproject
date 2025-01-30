@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase'; // Import Firestore instance
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png'; // Corrected file name
@@ -8,19 +10,38 @@ import './dashboard.css';
 
 const PaymentDashboard = () => {
   const location = useLocation();
-  const payments = [
-    { id: 1, user: "Mithilesh Kumar Singh", address: "Kritipur, Kathmandu", date: "12.Jan.2021", amount: 2500 },
-    { id: 2, user: "Suron Maharjan", address: "Natole, Lalitpur", date: "21.Feb.2021", amount: 4000 },
-    { id: 3, user: "Sandesh Bajracharya", address: "Bhinchhebahal, Lalitpur", date: "13.Mar.2021", amount: 800 },
-    { id: 4, user: "Subin Sedhai", address: "Baneshwor, Kathmandu", date: "24.Jan.2021", amount: 1500 },
-    { id: 5, user: "Wonjala Joshi", address: "Bhaisepati, Lalitpur", date: "21.Sep.2021", amount: 4500 },
-    { id: 6, user: "Numa Limbu", address: "Sampang Chowk,Dharan", date: "21.Sep.2021", amount: 2455 },
-    { id: 7, user: "Nimesh Sthapit", address: "Newroad, Pokhara", date: "21.Sep.2021", amount: 1800 },
-    { id: 8, user: "Samikshya Basnet", address: "Nakhipot, Lalitpur", date: "21.Sep.2021", amount: 1000 },
-    { id: 9, user: "Sushant Kushwar", address: "Sinamangal, Kathmandu", date: "21.Sep.2021", amount: 3500 },
-    { id: 10, user: "Hrishav Gajurel", address: "Khumaltar, Lalitpur", date: "21.Sep.2021", amount: 3200 },
-    { id: 11, user: "Tisha Joshi", address: "Ason, Kathmandu", date: "21.Sep.2021", amount: 1900 }
-  ];
+  const [activeTab, setActiveTab] = useState('prepaid'); // State to manage active tab
+  const [payments, setPayments] = useState([]);
+  const [address, setAddress] = useState('');
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const unsubscribePayments = onSnapshot(collection(db, 'Users/12345ABC/Payments'), (querySnapshot) => {
+      const paymentsData = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        const datePaid = data.date_paid.toDate().toLocaleDateString('en-US'); // Convert Firestore timestamp to date string
+        return {
+          id: doc.id,
+          ...data,
+          date_paid: datePaid
+        };
+      });
+      setPayments(paymentsData);
+    });
+
+    const unsubscribeUser = onSnapshot(doc(db, 'Users/12345ABC'), (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        setAddress(userData.address);
+        setUserName(userData.name);
+      }
+    });
+
+    return () => {
+      unsubscribePayments();
+      unsubscribeUser();
+    };
+  }, []);
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -73,10 +94,16 @@ const PaymentDashboard = () => {
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">Payment Details</h2>
                 <div className="flex space-x-2">
-                  <button className="px-4 py-1 text-gray-600 bg-gray-100 rounded-full">
+                  <button
+                    className={`px-4 py-1 rounded-full ${activeTab === 'prepaid' ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-600'}`}
+                    onClick={() => setActiveTab('prepaid')}
+                  >
                     Prepaid
                   </button>
-                  <button className="px-4 py-1 text-white bg-green-500 rounded-full">
+                  <button
+                    className={`px-4 py-1 rounded-full ${activeTab === 'postpaid' ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-600'}`}
+                    onClick={() => setActiveTab('postpaid')}
+                  >
                     Postpaid
                   </button>
                 </div>
@@ -102,9 +129,9 @@ const PaymentDashboard = () => {
                 <tbody>
                   {payments.map((payment) => (
                     <tr key={payment.id} className="border-b last:border-b-0">
-                      <td className="py-3 px-4 text-blue-600">{payment.user}</td>
-                      <td className="py-3 px-4 text-gray-600">{payment.address}</td>
-                      <td className="py-3 px-4 text-gray-600">{payment.date}</td>
+                      <td className="py-3 px-4 text-blue-600">{userName}</td>
+                      <td className="py-3 px-4 text-gray-600">{address}</td>
+                      <td className="py-3 px-4 text-gray-600">{payment.date_paid}</td>
                       <td className="py-3 px-4 text-gray-600">Rs. {payment.amount}</td>
                     </tr>
                   ))}
