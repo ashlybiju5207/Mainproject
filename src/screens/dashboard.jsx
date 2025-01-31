@@ -92,8 +92,9 @@ function Dashboard() {
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-8">
           <div>
-            MetroniQ/EB access/Dashboard/
-            <span className="text-green-500">Kurishmoodu Branch</span>
+            <Link to="/" className="text-gray-600 hover:text-gray-800">MetroniQ</Link> / 
+            <Link to="/dashboard" className="text-gray-600 hover:text-gray-800">EB access</Link> / Dashboard 
+            <div className="text-[#37BE00] font-bold">Kurishmoodu Branch</div>
           </div>
           <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={handleLogout}>
             Logout
@@ -152,8 +153,8 @@ function Dashboard() {
               <BarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <defs>
                   <linearGradient id="colorKWh" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#16a34a" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#16a34a" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#22c55e" />
+                    <stop offset="95%" stopColor="#22c55e" />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" />

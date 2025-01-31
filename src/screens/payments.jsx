@@ -93,9 +93,10 @@ const PaymentDashboard = () => {
         <div className="max-w-7xl mx-auto py-6 px-4">
           {/* Breadcrumb */}
           <div className="flex justify-between items-center mb-6">
-            <div className="text-sm text-gray-600">
-              MetroniQ/EB access/Payments/
-              <span className="text-green-500">Kurishmoodu Branch</span>
+            <div>
+              <Link to="/" className="text-gray-600 hover:text-gray-800">MetroniQ</Link> / 
+              <Link to="/payments" className="text-gray-600 hover:text-gray-800">EB access</Link> / Payments 
+              <div className="text-[#37BE00] font-bold">Kurishmoodu Branch</div>
             </div>
             <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={handleLogout}>
               Logout
