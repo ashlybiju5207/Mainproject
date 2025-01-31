@@ -1,59 +1,109 @@
-import React, { useState } from 'react';
-import { Printer, FileText, X } from 'lucide-react'; // Use Printer and FileText icons
+import React from 'react';
 import html2pdf from 'html2pdf.js';
+import { motion } from 'framer-motion';
+import { FileDown } from 'lucide-react';
 
-const PrintReportButton = ({ contentId }) => {
-  const [showDialog, setShowDialog] = useState(false);
-  const [saving, setSaving] = useState(false);
+const PrintReportButton = ({ reports, userData }) => {
+  const getReportTemplate = () => `
+    <div class="print-only" style="padding: 40px; max-width: 850px; margin: 0 auto; font-family: 'Segoe UI', sans-serif;">
+      <!-- Title Section with 3D effect -->
+      <div style="
+        background: linear-gradient(135deg, #22c55e, #15803d);
+        padding: 4px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px -5px rgba(34, 197, 94, 0.3);
+        margin-bottom: 40px;
+        transform: perspective(1000px) rotateX(2deg);
+      ">
+        <div style="
+          background: white;
+          border-radius: 14px;
+          padding: 25px;
+          text-align: center;
+          position: relative;
+        ">
+          <h2 style="
+            font-size: 36px;
+            background: linear-gradient(45deg, #22c55e, #15803d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+          ">
+            MetroniQ Report Details
+          </h2>
+        </div>
+      </div>
 
-  const handlePrint = async (format) => {
-    setShowDialog(false);
-    setSaving(true);
-    
-    try {
-      const element = document.getElementById(contentId);
-      if (format === 'pdf') {
-        html2pdf().from(element).save();
-      } else {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write('<html><head><title>Print</title></head><body>');
-        printWindow.document.write(element.innerHTML);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        printWindow.print();
-      }
-    } catch (error) {
-      console.error('Error printing:', error);
-      alert('Error generating document. Please try again.');
-    } finally {
-      setSaving(false);
-    }
-  };
+      <!-- Data Table with 3D effect -->
+      <div style="
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transform: perspective(1000px) rotateX(1deg);
+      ">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background: linear-gradient(90deg, #22c55e, #15803d);">
+              <th style="padding: 16px; color: white; font-weight: 600; text-align: left; text-transform: uppercase; letter-spacing: 1px; font-size: 14px;">Users</th>
+              <th style="padding: 16px; color: white; font-weight: 600; text-align: left; text-transform: uppercase; letter-spacing: 1px; font-size: 14px;">Address</th>
+              <th style="padding: 16px; color: white; font-weight: 600; text-align: left; text-transform: uppercase; letter-spacing: 1px; font-size: 14px;">Date</th>
+              <th style="padding: 16px; color: white; font-weight: 600; text-align: left; text-transform: uppercase; letter-spacing: 1px; font-size: 14px;">Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${reports.map((report) => `
+              <tr style="border-bottom: 1px solid #e2e8f0;">
+                <td style="padding: 16px; color: #1a73e8; font-weight: 500;">${userData.name || ''}</td>
+                <td style="padding: 16px; color: #4a5568;">${userData.address || ''}</td>
+                <td style="padding: 16px; color: #4a5568;">${report.date || ''}</td>
+                <td style="padding: 16px; color: #4a5568;">${report.reason || ''}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
 
   return (
-    <div>
-      <button
-        onClick={() => setShowDialog(true)}
-        className="fixed bottom-4 right-4 p-4 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+    <div className="fixed bottom-8 right-8 z-50">
+      <div className="absolute -inset-1 bg-gradient-to-r from-green-400 via-emerald-500 to-teal-500 rounded-full blur opacity-75 animate-pulse" />
+      <motion.button
+        whileHover={{ 
+          scale: 1.1,
+          rotate: 5,
+          boxShadow: "0 0 25px rgb(52 211 153 / 0.5)"
+        }}
+        whileTap={{ 
+          scale: 0.9,
+          rotate: -5 
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20
+        }}
+        onClick={() => {
+          const opt = {
+            margin: 1,
+            filename: 'MetroniQ_Report.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          };
+          const content = document.createElement('div');
+          content.innerHTML = getReportTemplate();
+          html2pdf().from(content).set(opt).save();
+        }}
+        className="relative p-4 rounded-full bg-gradient-to-br from-green-400 via-emerald-500 to-teal-500 text-white shadow-xl"
       >
-        <Printer size={24} />
-      </button>
-      {showDialog && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg relative w-96">
-            <button onClick={() => setShowDialog(false)} className="absolute top-2 right-2">
-              <X size={16} />
-            </button>
-            <h3 className="text-lg font-semibold mb-4 text-green-500">Choose Format</h3>
-            <button onClick={() => handlePrint('pdf')} className="w-full p-2 bg-green-500 text-white rounded mb-2 flex items-center justify-center hover:bg-green-600">
-              <FileText size={16} className="mr-2" /> PDF
-            </button>
-            <button onClick={() => handlePrint('print')} className="w-full p-2 bg-green-500 text-white rounded flex items-center justify-center hover:bg-green-600">
-              <Printer size={16} className="mr-2" /> Print
-            </button>
-          </div>
-        </div>
-      )}
+        <FileDown size={24} className="relative z-10 transform transition-transform hover:rotate-12" />
+      </motion.button>
     </div>
   );
 };

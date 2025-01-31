@@ -1,30 +1,76 @@
 @media print {
-    /* Hide elements we don't want to print */
-    .w-64,
-    button,
-    nav {
-      display: none !important;
-    }
-  
-    /* Reset flex for printing */
-    .flex {
-      display: block !important;
-    }
-  
-    /* Ensure content is printable */
-    .overflow-auto {
-      overflow: visible !important;
-    }
-  
-    /* Make sure table prints properly */
-    table {
-      width: 100% !important;
-      border-collapse: collapse !important;
-    }
-  
-    td, th {
-      color: black !important;
-      border-bottom: 1px solid #ddd !important;
-      padding: 8px !important;
-    }
+  /* Hide everything except print content */
+  body > *:not(.print-only) {
+    display: none !important;
   }
+
+  /* Print layout setup */
+  .print-only {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    background: white;
+  }
+
+  /* Header styling */
+  .print-only h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333 !important;
+    margin-bottom: 20px;
+  }
+
+  /* Customer info section */
+  .print-only .customer-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa !important;
+    border-radius: 8px;
+  }
+
+  /* Table styling */
+  .print-only table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 20px;
+  }
+
+  .print-only thead tr {
+    background: #4ade80 !important;
+  }
+
+  .print-only th {
+    padding: 12px !important;
+    text-align: left !important;
+    color: white !important;
+    border-bottom: 2px solid #333 !important;
+  }
+
+  .print-only td {
+    padding: 12px !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    color: #333 !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 2cm;
+  }
+
+  /* Reset unwanted styles */
+  .flex,
+  .overflow-auto {
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* Hide UI elements */
+  button,
+  .no-print {
+    display: none !important;
+  }
+}

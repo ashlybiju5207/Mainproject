@@ -1,29 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, MoreVertical } from 'lucide-react';
+import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
 import PrintReportButton from '../components/PrintReportButton';
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
-import reportsIcon from '../images/report.png'; // Corrected file name
+import reportsIcon from '../images/report.png';
+import './dashboard.css';
 import './print.css';
 import { getAuth, signOut } from 'firebase/auth';
 
 const Reports = () => {
   const location = useLocation();
-  
-  const reports = [
-    { id: 1, user: "Mithilesh Kumar Singh", address: "Kritipur, Kathmandu", date: "12.Jan.2021", reason: "Prepaid plan exhausted" },
-    { id: 2, user: "Suron Maharjan", address: "Natole, Lalitpur", date: "21.Feb.2021", reason: "Power Outage" },
-    { id: 3, user: "Sandesh Bajracharya", address: "Bhinchhebahal, Lalitpur", date: "13.Mar.2021", reason: "Prepaid plan exhausted" },
-    { id: 4, user: "Subin Sedhai", address: "Baneshwor, Kathmandu", date: "24.Jan.2021", reason: "Prepaid plan exhausted" },
-    { id: 5, user: "Wonjala Joshi", address: "Bhaisepati, Lalitpur", date: "21.Sep.2021", reason: "Power Outage" },
-    { id: 6, user: "Numa Limbu", address: "Sampang Chowk,Dharan", date: "21.Sep.2021", reason: "Power Outage" },
-    { id: 7, user: "Nimesh Sthapit", address: "Newroad, Pokhara", date: "21.Sep.2021", reason: "Prepaid plan exhausted" },
-    { id: 8, user: "Samikshya Basnet", address: "Nakhipot, Lalitpur", date: "21.Sep.2021", reason: "Power Outage" },
-    { id: 9, user: "Sushant Kushwar", address: "Sinamangal, Kathmandu", date: "21.Sep.2021", reason: "Power Outage" },
-    { id: 10, user: "Hrishav Gajurel", address: "Khumaltar, Lalitpur", date: "21.Sep.2021", reason: "Prepaid plan exhausted" },
-    { id: 11, user: "Tisha Joshi", address: "Ason, Kathmandu", date: "21.Sep.2021", reason: "Power Outage" }
-  ];
+  const [reports, setReports] = useState([]);
+  const [userData, setUserData] = useState({
+    address: '',
+    name: ''
+  });
+
+  useEffect(() => {
+    const unsubscribeReports = onSnapshot(
+      collection(db, 'Users/12345ABC/Reports'),
+      (querySnapshot) => {
+        const reportsData = querySnapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            reason: data.reason,
+            date: data.timestamp?.toDate().toLocaleDateString('en-US', {
+              month: '2-digit',
+              day: '2-digit',
+              year: '2-digit'
+            })
+          };
+        });
+        setReports(reportsData);
+      }
+    );
+
+    // Fetch user details
+    const unsubscribeUser = onSnapshot(doc(db, 'Users/12345ABC'), (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        setUserData({
+          address: data.address,
+          name: data.name
+        });
+      }
+    });
+
+    return () => {
+      unsubscribeReports();
+      unsubscribeUser();
+    };
+  }, []);
 
   const handleLogout = () => {
     const auth = getAuth();
@@ -40,19 +70,63 @@ const Reports = () => {
       <div className="w-64 bg-white border-r border-gray-200">
         <div className="p-6">
           <h2 className="text-lg font-semibold mb-6">EB Access</h2>
-          <nav className="space-y-1">
-            <Link to="/dashboard" className={`flex items-center p-2 rounded-lg ${location.pathname === '/dashboard' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <img src={dashboardIcon} alt="Dashboard" className="mr-3 w-5 h-5" />
-              Dashboard
-            </Link>
-            <Link to="/payments" className={`flex items-center p-2 rounded-lg ${location.pathname === '/payments' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <img src={paymentsIcon} alt="Payments" className="mr-3 w-5 h-5" />
-              Payments
-            </Link>
-            <Link to="/reports" className={`flex items-center p-2 rounded-lg ${location.pathname === '/reports' ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>
-              <img src={reportsIcon} alt="Reports" className="mr-3 w-5 h-5" />
-              Reports
-            </Link>
+          <nav>
+            <ul className="space-y-1">
+              <li>
+                <Link 
+                  to="/dashboard" 
+                  className={`flex items-center p-2 rounded-lg ${
+                    location.pathname === '/dashboard' 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <img 
+                    src={dashboardIcon} 
+                    alt="Dashboard" 
+                    className="mr-3" 
+                    style={{ width: '20px', height: '20px' }} 
+                  />
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/payments" 
+                  className={`flex items-center p-2 rounded-lg ${
+                    location.pathname === '/payments' 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <img 
+                    src={paymentsIcon} 
+                    alt="Payments" 
+                    className="mr-3" 
+                    style={{ width: '20px', height: '20px' }} 
+                  />
+                  Payments
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/reports" 
+                  className={`flex items-center p-2 rounded-lg ${
+                    location.pathname === '/reports' 
+                      ? 'bg-green-500 text-white' 
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <img 
+                    src={reportsIcon} 
+                    alt="Reports" 
+                    className="mr-3" 
+                    style={{ width: '20px', height: '20px' }} 
+                  />
+                  Reports
+                </Link>
+              </li>
+            </ul>
           </nav>
         </div>
       </div>
@@ -71,46 +145,33 @@ const Reports = () => {
             </button>
           </div>
 
-          {/* Report Section */}
+          {/* Reports Table */}
           <div className="bg-white rounded-lg shadow">
-            <div className="p-6" id="pdf-content">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Report</h2>
-                <button className="p-2 hover:bg-gray-100 rounded-full">
-                  <MoreVertical className="h-5 w-5 text-gray-500" />
-                </button>
-              </div>
-
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Users <ChevronDown className="inline h-4 w-4" />
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Address <ChevronDown className="inline h-4 w-4" />
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Date <ChevronDown className="inline h-4 w-4" />
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      Reason <ChevronDown className="inline h-4 w-4" />
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {reports.map((report) => (
-                    <tr key={report.id} className="border-b last:border-b-0">
-                      <td className="py-3 px-4 text-blue-600">{report.user}</td>
-                      <td className="py-3 px-4 text-gray-600">{report.address}</td>
-                      <td className="py-3 px-4 text-gray-600">{report.date}</td>
-                      <td className="py-3 px-4 text-gray-600">{report.reason}</td>
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-6">Report Details</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="py-3 px-4 text-left">Users</th>
+                      <th className="py-3 px-4 text-left">Address</th>
+                      <th className="py-3 px-4 text-left">Date</th>
+                      <th className="py-3 px-4 text-left">Reason</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              {/* Add PrintReportButton here */}
-              <PrintReportButton contentId="pdf-content" />
+                  </thead>
+                  <tbody>
+                    {reports.map((report) => (
+                      <tr key={report.id} className="border-b last:border-b-0">
+                        <td className="py-3 px-4 text-blue-600">{userData.name}</td>
+                        <td className="py-3 px-4 text-gray-600">{userData.address}</td>
+                        <td className="py-3 px-4 text-gray-600">{report.date}</td>
+                        <td className="py-3 px-4 text-gray-600">{report.reason}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <PrintReportButton reports={reports} userData={{ name: userData.name, address: userData.address, billing_plan: userData.billing_plan, balance_amount: userData.payment_amount }} />
             </div>
           </div>
         </div>
