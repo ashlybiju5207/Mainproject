@@ -7,14 +7,22 @@ import { db, auth } from '../firebase'; // Import Firestore and Auth instances
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png';
+import pendingPaymentsIcon from '../images/pendingpayments.png'; // Import the new icon
+import totalConsumptionIcon from '../images/totalconsumption.png'; // Import the new icon
+import userIcon from '../images/user.png'; // Import the new icon
 
 function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [userCount, setUserCount] = useState(0);
+  const [totalConsumption, setTotalConsumption] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'Users/12345ABC/Consumption'), (querySnapshot) => {
+    setLoaded(true);
+
+    const unsubscribeConsumption = onSnapshot(collection(db, 'Users/12345ABC/Consumption'), (querySnapshot) => {
       const data = querySnapshot.docs.map(doc => {
         const timestamp = doc.data().timestamp;
         if (timestamp && timestamp.includes('at')) {
@@ -30,21 +38,35 @@ function Dashboard() {
         return null;
       }).filter(item => item !== null); // Filter out any null values
       setData(data);
+
+      // Calculate total consumption
+      const total = data.reduce((sum, item) => sum + item.kWh, 0);
+      setTotalConsumption(total.toFixed(2)); // Reduce to 2 decimal places
     });
 
-    return () => unsubscribe();
+    const unsubscribeUsers = onSnapshot(collection(db, 'Users'), (querySnapshot) => {
+      setUserCount(querySnapshot.size); // Update the user count
+    });
+
+    return () => {
+      unsubscribeConsumption();
+      unsubscribeUsers();
+    };
   }, []);
 
   const handleLogout = () => {
-    auth.signOut().then(() => {
-      navigate('/'); // Redirect to the landing page after logout
-    }).catch((error) => {
-      console.error('Error logging out: ', error);
-    });
+    setLoaded(false);
+    setTimeout(() => {
+      auth.signOut().then(() => {
+        navigate('/'); // Redirect to the landing page after logout
+      }).catch((error) => {
+        console.error('Error logging out: ', error);
+      });
+    }, 1000); // Wait for the fade-out transition to complete
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className={`flex h-screen bg-gray-50 transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Sidebar */}
       <div className="w-64 bg-white border-r border-gray-200">
         <div className="p-6">
@@ -84,11 +106,11 @@ function Dashboard() {
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center">
               <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4">
-                <span className="text-green-500 text-xl">👥</span>
+                <img src={userIcon} alt="Users" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Users</p>
-                <p className="text-2xl font-semibold">1</p>
+                <p className="text-sm text-gray-600 font-bold">Users</p>
+                <p className="text-2xl font-semibold">{userCount}</p>
               </div>
             </div>
           </div>
@@ -97,10 +119,10 @@ function Dashboard() {
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center">
               <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4">
-                <span className="text-green-500 text-xl">💸</span>
+                <img src={pendingPaymentsIcon} alt="Pending Payments" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Pending Payments</p>
+                <p className="text-sm text-gray-600 font-bold">Pending Payments</p>
                 <p className="text-2xl font-semibold">5</p>
               </div>
             </div>
@@ -110,11 +132,11 @@ function Dashboard() {
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center">
               <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4">
-                <span className="text-green-500 text-xl">⚡</span>
+                <img src={totalConsumptionIcon} alt="Total Consumption" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Consumption</p>
-                <p className="text-2xl font-semibold">10 kWh</p>
+                <p className="text-sm text-gray-600 font-bold">Total Consumption</p>
+                <p className="text-2xl font-semibold">{totalConsumption} kWh</p>
               </div>
             </div>
           </div>

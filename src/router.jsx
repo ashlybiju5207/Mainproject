@@ -9,6 +9,7 @@ import Login from './screens/login';
 import Signup from './screens/signup';
 import Forgotpass from './screens/Forgotpass';  
 import Products from './screens/products'; // Import the Products component
+import FAQ from './screens/faq';
 import './App.css';
 import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
 
@@ -20,6 +21,7 @@ const AppRouter = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgotpass" element={<Forgotpass />} />
+      <Route path="/faq" element={<FAQ />} />
       <Route
         path="/dashboard"
         element={

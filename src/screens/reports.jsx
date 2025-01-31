@@ -17,8 +17,10 @@ const Reports = () => {
     address: '',
     name: ''
   });
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    setLoaded(true);
     const unsubscribeReports = onSnapshot(
       collection(db, 'Users/12345ABC/Reports'),
       (querySnapshot) => {
@@ -49,6 +51,8 @@ const Reports = () => {
       }
     });
 
+    setTimeout(() => setLoaded(true), 100); // Add delay for transition
+
     return () => {
       unsubscribeReports();
       unsubscribeUser();
@@ -56,16 +60,19 @@ const Reports = () => {
   }, []);
 
   const handleLogout = () => {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      window.location.href = '/';
-    }).catch((error) => {
-      console.error('Error during logout:', error);
-    });
+    setLoaded(false);
+    setTimeout(() => {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        window.location.href = '/';
+      }).catch((error) => {
+        console.error('Error during logout:', error);
+      });
+    }, 1000); // Wait for the fade-out transition to complete
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className={`flex h-screen bg-gray-50 transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Sidebar */}
       <div className="w-64 bg-white border-r border-gray-200">
         <div className="p-6">

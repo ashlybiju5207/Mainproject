@@ -6,6 +6,7 @@ import anjana from '../images/anjana.jpg';
 import aadarsh from '../images/aadarsh.jpg';
 import missionImage from '../images/mission.png';
 import visionImage from '../images/vision.png';
+import { Link } from 'react-router-dom';
 
 const AboutUs = () => {
   return (
@@ -31,7 +32,7 @@ const AboutUs = () => {
               <h2>Ashly Biju</h2>
               <p className="title">Web Developer</p>
               <p>ashly.csa2125@saintgits.org</p>
-              <button className="contact-btn">Contact</button>
+              <Link to="https://www.linkedin.com/in/ashlybiju" className="contact-btn">Contact</Link>
             </div>
           </div>
         </div>
@@ -45,7 +46,8 @@ const AboutUs = () => {
               <h2>Abhinand M</h2>
               <p className="title">App Developer</p>
               <p>abhinand.csa2125@saintgits.org</p>
-              <button className="contact-btn">Contact</button>
+              <Link to="https://www.linkedin.com/in/abhinand-m" className="contact-btn">Contact</Link>
+
             </div>
           </div>
         </div>
@@ -59,7 +61,8 @@ const AboutUs = () => {
               <h2>Anjana Vinod</h2>
               <p className="title">Web Developer</p>
               <p>av.csa2125@saintgits.org</p>
-              <button className="contact-btn">Contact</button>
+              <Link to="https://www.linkedin.com/in/anjana-vinod" className="contact-btn">Contact</Link>
+
             </div>
           </div>
         </div>
@@ -73,7 +76,7 @@ const AboutUs = () => {
               <h2>Aadarsh Rajesh</h2>
               <p className="title">Web Developer</p>
               <p>aadarsh.csa2125@saintgits.org</p>
-              <button className="contact-btn">Contact</button>
+              <Link to="https://www.linkedin.com/in/aadarshrajesh" className="contact-btn">Contact</Link>
             </div>
           </div>
         </div>

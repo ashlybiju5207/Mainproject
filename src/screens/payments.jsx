@@ -15,8 +15,10 @@ const PaymentDashboard = () => {
   const [payments, setPayments] = useState([]);
   const [address, setAddress] = useState('');
   const [userName, setUserName] = useState('');
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    setLoaded(true);
     const unsubscribePayments = onSnapshot(collection(db, 'Users/12345ABC/Payments'), (querySnapshot) => {
       const paymentsData = querySnapshot.docs.map(doc => {
         const data = doc.data();
@@ -45,15 +47,18 @@ const PaymentDashboard = () => {
   }, []);
 
   const handleLogout = () => {
-    auth.signOut().then(() => {
-      navigate('/'); // Redirect to the landing page after logout
-    }).catch((error) => {
-      console.error('Error logging out: ', error);
-    });
+    setLoaded(false);
+    setTimeout(() => {
+      auth.signOut().then(() => {
+        navigate('/'); // Redirect to the landing page after logout
+      }).catch((error) => {
+        console.error('Error logging out: ', error);
+      });
+    }, 1000); // Wait for the fade-out transition to complete
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className={`flex h-screen bg-gray-50 transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
       {/* Sidebar */}
       <div className="w-64 bg-white border-r border-gray-200">
         <div className="p-6">
