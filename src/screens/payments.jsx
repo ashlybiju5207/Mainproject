@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { collection, doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase'; // Import Firestore instance
+import { db, auth } from '../firebase'; // Import Firestore and Auth instances
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png'; // Corrected file name
@@ -10,6 +10,7 @@ import './dashboard.css';
 
 const PaymentDashboard = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('prepaid'); // State to manage active tab
   const [payments, setPayments] = useState([]);
   const [address, setAddress] = useState('');
@@ -42,6 +43,14 @@ const PaymentDashboard = () => {
       unsubscribeUser();
     };
   }, []);
+
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      navigate('/'); // Redirect to the landing page after logout
+    }).catch((error) => {
+      console.error('Error logging out: ', error);
+    });
+  };
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -83,7 +92,7 @@ const PaymentDashboard = () => {
               MetroniQ/EB access/Payments/
               <span className="text-green-500">Kurishmoodu Branch</span>
             </div>
-            <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={() => { window.location.href = '/'; /* Add logout logic here */ }}>
+            <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={handleLogout}>
               Logout
             </button>
           </div>

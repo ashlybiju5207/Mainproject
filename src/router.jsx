@@ -10,19 +10,48 @@ import Signup from './screens/signup';
 import Forgotpass from './screens/Forgotpass';  
 import Products from './screens/products'; // Import the Products component
 import './App.css';
+import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
 
 const AppRouter = () => (
   <Router>
     <Routes>
       <Route path="/" element={<Land />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/payments" element={<Payments />} />
-      <Route path="/reports" element={<Reports />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/Forgotpass" element={<Forgotpass/>} />
-      <Route path="/products" element={<Products />} /> {/* Add the Products route */}
+      <Route path="/forgotpass" element={<Forgotpass />} />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/payments"
+        element={
+          <PrivateRoute>
+            <Payments />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <PrivateRoute>
+            <Reports />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/products"
+        element={
+          <PrivateRoute>
+            <Products />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   </Router>
 );

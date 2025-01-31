@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, defs, linearGradient, stop } from 'recharts';
 import { BarChart2 } from 'lucide-react';
 import { collection, getDocs, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase'; // Import Firestore instance
+import { db, auth } from '../firebase'; // Import Firestore and Auth instances
 import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png';
 
 function Dashboard() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -33,6 +34,14 @@ function Dashboard() {
 
     return () => unsubscribe();
   }, []);
+
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      navigate('/'); // Redirect to the landing page after logout
+    }).catch((error) => {
+      console.error('Error logging out: ', error);
+    });
+  };
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -64,7 +73,7 @@ function Dashboard() {
             MetroniQ/EB access/Dashboard/
             <span className="text-green-500">Kurishmoodu Branch</span>
           </div>
-          <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={() => { window.location.href = '/'; /* Add logout logic here */ }}>
+          <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={handleLogout}>
             Logout
           </button>
         </div>

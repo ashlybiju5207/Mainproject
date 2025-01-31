@@ -6,6 +6,7 @@ import dashboardIcon from '../images/dash.png';
 import paymentsIcon from '../images/payments.png';
 import reportsIcon from '../images/report.png'; // Corrected file name
 import './print.css';
+import { getAuth, signOut } from 'firebase/auth';
 
 const Reports = () => {
   const location = useLocation();
@@ -23,6 +24,15 @@ const Reports = () => {
     { id: 10, user: "Hrishav Gajurel", address: "Khumaltar, Lalitpur", date: "21.Sep.2021", reason: "Prepaid plan exhausted" },
     { id: 11, user: "Tisha Joshi", address: "Ason, Kathmandu", date: "21.Sep.2021", reason: "Power Outage" }
   ];
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      window.location.href = '/';
+    }).catch((error) => {
+      console.error('Error during logout:', error);
+    });
+  };
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -56,7 +66,7 @@ const Reports = () => {
               MetroniQ/EB access/Reports/
               <span className="text-green-500">Kurishmoodu Branch</span>
             </div>
-            <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={() => { window.location.href = '/'; /* Add logout logic here */ }}>
+            <button className="bg-black text-white px-4 py-2 rounded hover:bg-red-500 hover:text-white" onClick={handleLogout}>
               Logout
             </button>
           </div>
