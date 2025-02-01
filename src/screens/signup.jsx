@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
 import { auth } from '../firebaseConfig'; // Import auth from the new Firebase config file
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -13,6 +13,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [shake, setShake] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
@@ -55,8 +56,8 @@ const Signup = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // Redirect to the dashboard or another page
-      window.location.href = '/dashboard';
+      // Redirect to the login page
+      navigate('/login');
     } catch (error) {
       setError(error.message);
       alert(error.message);
