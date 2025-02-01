@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [shake, setShake] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const form = document.querySelector('.form');
@@ -18,13 +19,27 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(''); // Clear previous error
 
     if (!email || !password) {
+      setError('Please enter both email and password.');
+      alert('Please enter both email and password.');
       setShake(true);
-      setTimeout(() => {
-        setShake(false);
-        alert('Please enter both email and password.');
-      }, 500);
+      setTimeout(() => setShake(false), 500);
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address.');
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
       return;
     }
 
@@ -33,16 +48,22 @@ const Login = () => {
       // Redirect to the dashboard or another page
       window.location.href = '/dashboard';
     } catch (error) {
+      setError('Unauthorized access. Invalid username or password.');
+      alert('Unauthorized access. Invalid username or password.');
       setShake(true);
-      setTimeout(() => {
-        setShake(false);
-        alert('Unauthorized access. Invalid username or password.');
-      }, 500);
+      setTimeout(() => setShake(false), 500);
     }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length >= 6) {
+      setError('');
+    }
   };
 
   return (
@@ -67,12 +88,13 @@ const Login = () => {
               name="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
             />
             <span className="eye-icon" onClick={togglePasswordVisibility}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          {error && <p className="error">{error}</p>}
         </span>
         <span className="span"><Link to="/Forgotpass">Forgot password?</Link></span>
         <span className="span"></span>

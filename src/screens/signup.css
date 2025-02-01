@@ -36,6 +36,14 @@ body, html {
   align-items: center;
   height: 100vh;
   background-color: #f0f0f0; /* Apply background color only to the signup page */
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.signup.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .signup .form .heading {
